@@ -1,0 +1,8 @@
+html,
+body {
+    background-image: url(../images/image3.jpg);
+    /* background-repeat: no-repeat; */
+    background-repeat: repeat-y;
+    background-repeat: repeat-x;
+    /* background-size: cover; */
+}
