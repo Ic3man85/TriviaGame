@@ -1,8 +1,21 @@
+@import url('https://fonts.googleapis.com/css?family=Special+Elite&display=swap');
 html,
 body {
-    background-image: url(../images/image3.jpg);
-    /* background-repeat: no-repeat; */
-    background-repeat: repeat-y;
-    background-repeat: repeat-x;
-    /* background-size: cover; */
+    background-image: url(../images/image4.jpg);
+    background-size: cover;
+    font-weight: bold;
+    font-family: 'Special Elite', cursive;
+}
+
+.jumbotron {
+    opacity: .7;
+}
+
+p,
+span {
+    font-size: 30px;
+}
+
+#answers {
+    font-size: 30px;
 }
