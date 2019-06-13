@@ -1,22 +1,14 @@
-/*let correctAnswered = 0;
-let incorrectAnswered = 0;
-let unAnswered = 0;
-let timeRemaining = 30;
-let setTimer = 0;
-let answered = false;
-let correct;*/
-
 $(document).ready(function() {
-
-    correctAnswered = 0;
-    incorrectAnswered = 0;
-    unAnswered = 0;
-    timeRemaining = 30;
-    setTimer = 0;
-    answered = false;
+    let correctAnswered = 0;
+    let incorrectAnswered = 0;
+    let unAnswered = 0;
+    let timeRemaining = 20;
+    let setTimer = 0;
+    let answered = false;
     let correct;
-    let index;
+    let index = 0;
     let triviaGame = [{
+
             question: 'Which MVP had his helmet stolen at the 1994 Super Bowl?',
             choices: ['Adrian Pederson', 'Frank Gore', 'Emmitt Smith', 'Barry Sanders'],
             correct: '2'
@@ -67,15 +59,92 @@ $(document).ready(function() {
             correct: '2'
         }
     ];
+    $('#time').hide()
 
-    function questionAnswer() {
-        index = triviaGame.length;
-        for (let i = 0; i < index; i++) {
-            console.log(triviaGame.question);
-            $('#question').html('<h2>' + triviaGame[index].question[i] + "</h2>");
+    function startGame() {
+        question();
+        run();
+    }
 
-            // $('#answers').html('<h4>' + pick.choices[i] + "</h4>");
+    function question() {
+
+        correct = triviaGame[index].correct;
+        let question = triviaGame[index].question;
+
+        for (let i = 0; i < 4; i++) {
+            $('#question').html(question);
+
+            let choices = triviaGame[index].choices[i];
+            $('#answers').append("<h2 class=choices id=" + i + ">" + choices + "</h2>");
         }
-    };
-    questionAnswer();
-})
+        $("h2").click(function() {
+            let value = $(this).attr('id');
+            if (value === correct) {
+                answered = true;
+                correctAnswered++;
+                $('#result').html("Correct!!!!");
+                reset();
+            } else if (value != correct) {
+                answered = true;
+                incorrectAnswered++
+                $('#result').text("That is Incorrect!!!!");
+                reset();
+            } else {
+                answered = false;
+                reset();
+            }
+
+        });
+    }
+
+    function reset() {
+        $("#answers").empty();
+        $("#result").empty();
+
+
+        index++
+        if (index < triviaGame.length) {
+            question();
+
+        } else {
+            $("#question").empty();
+            $("#answers").empty();
+            $("#result").empty();
+            $("#answers").append("<h2 class=choices end>" + "Correctly Answered: " + correctAnswered + "</h2>");
+            $("#answers").append("<h2 class=choices end>" + "InCorrectly Answered: " + incorrectAnswered + " </h2>");
+            $("#answers").append("<h2 class=choices end>" + "Un Answered: " + unAnswered + "</h2>");
+        }
+    }
+
+    function run() {
+        $('#time').show()
+        setTimer = setInterval(timer, 1000);
+    }
+
+    function timer() {
+
+        timeRemaining--;
+
+        $("#timer").html(timeRemaining);
+
+        if (timeRemaining === 0) {
+
+            stop();
+
+            alert("Time Up!");
+        }
+    }
+
+    function stop() {
+
+        clearInterval(setTimer);
+    }
+
+    $('#start').on('click', function() {
+        $('#start').hide();
+        startGame();
+    })
+
+
+
+});

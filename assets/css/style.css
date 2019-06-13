@@ -19,3 +19,13 @@ span {
 #answers {
     font-size: 30px;
 }
+
+#result {
+    font-size: 30px;
+}
+
+.choices {
+    /* float: right; */
+    margin-left: 350px;
+    font-weight: bolder;
+}
