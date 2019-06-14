@@ -2,7 +2,7 @@ $(document).ready(function() {
     let correctAnswered = 0;
     let incorrectAnswered = 0;
     let unAnswered = 0;
-    let timeRemaining = 20;
+    let timeRemaining = 10;
     let setTimer = 0;
     let answered = false;
     let correct;
@@ -83,17 +83,15 @@ $(document).ready(function() {
                 answered = true;
                 correctAnswered++;
                 $('#result').html("Correct!!!!");
-                reset();
+                stop();
             } else if (value != correct) {
                 answered = true;
                 incorrectAnswered++
                 $('#result').text("That is Incorrect!!!!");
-                reset();
+                stop();
             } else {
-                answered = false;
-                reset();
+                timer();
             }
-
         });
     }
 
@@ -113,6 +111,8 @@ $(document).ready(function() {
             $("#answers").append("<h2 class=choices end>" + "Correctly Answered: " + correctAnswered + "</h2>");
             $("#answers").append("<h2 class=choices end>" + "InCorrectly Answered: " + incorrectAnswered + " </h2>");
             $("#answers").append("<h2 class=choices end>" + "Un Answered: " + unAnswered + "</h2>");
+            startGame();
+
         }
     }
 
@@ -122,22 +122,22 @@ $(document).ready(function() {
     }
 
     function timer() {
-
         timeRemaining--;
-
         $("#timer").html(timeRemaining);
-
         if (timeRemaining === 0) {
-
+            answered = false;
+            unAnswered++
             stop();
-
             alert("Time Up!");
         }
+
     }
 
     function stop() {
-
         clearInterval(setTimer);
+        timeRemaining = 10;
+        reset();
+        run();
     }
 
     $('#start').on('click', function() {
