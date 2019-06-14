@@ -59,9 +59,12 @@ $(document).ready(function() {
             correct: '2'
         }
     ];
-    $('#time').hide()
+    $('#time').hide();
 
     function startGame() {
+        correctAnswered = 0;
+        incorrectAnswered = 0;
+        unAnswered = 0;
         question();
         run();
     }
@@ -108,10 +111,11 @@ $(document).ready(function() {
             $("#question").empty();
             $("#answers").empty();
             $("#result").empty();
+            $('#time').hide();
+            $('#start').show();
             $("#answers").append("<h2 class=choices end>" + "Correctly Answered: " + correctAnswered + "</h2>");
             $("#answers").append("<h2 class=choices end>" + "InCorrectly Answered: " + incorrectAnswered + " </h2>");
             $("#answers").append("<h2 class=choices end>" + "Un Answered: " + unAnswered + "</h2>");
-            startGame();
 
         }
     }
