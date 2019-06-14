@@ -4,7 +4,6 @@ $(document).ready(function() {
     let unAnswered = 0;
     let timeRemaining = 10;
     let setTimer = 0;
-    let answered = false;
     let correct;
     let index = 0;
     let triviaGame = [{
@@ -62,9 +61,9 @@ $(document).ready(function() {
     $('#time').hide();
 
     function startGame() {
-        correctAnswered = 0;
-        incorrectAnswered = 0;
-        unAnswered = 0;
+        $('.choices').hide();
+        $('#question').show();
+        $('.answers').show();
         question();
         run();
     }
@@ -83,17 +82,13 @@ $(document).ready(function() {
         $("h2").click(function() {
             let value = $(this).attr('id');
             if (value === correct) {
-                answered = true;
                 correctAnswered++;
                 $('#result').html("Correct!!!!");
                 stop();
             } else if (value != correct) {
-                answered = true;
                 incorrectAnswered++
                 $('#result').text("That is Incorrect!!!!");
                 stop();
-            } else {
-                timer();
             }
         });
     }
@@ -101,22 +96,17 @@ $(document).ready(function() {
     function reset() {
         $("#answers").empty();
         $("#result").empty();
-
-
         index++
         if (index < triviaGame.length) {
             question();
-
         } else {
             $("#question").empty();
             $("#answers").empty();
             $("#result").empty();
             $('#time').hide();
-            $('#start').show();
-            $("#answers").append("<h2 class=choices end>" + "Correctly Answered: " + correctAnswered + "</h2>");
-            $("#answers").append("<h2 class=choices end>" + "InCorrectly Answered: " + incorrectAnswered + " </h2>");
-            $("#answers").append("<h2 class=choices end>" + "Un Answered: " + unAnswered + "</h2>");
-
+            $("#answers").append("<h2 class=choices>" + "Correctly Answered: " + correctAnswered + "</h2>");
+            $("#answers").append("<h2 class=choices>" + "InCorrectly Answered: " + incorrectAnswered + " </h2>");
+            $("#answers").append("<h2 class=choices>" + "Un-Answered: " + unAnswered + "</h2>");
         }
     }
 
@@ -129,7 +119,6 @@ $(document).ready(function() {
         timeRemaining--;
         $("#timer").html(timeRemaining);
         if (timeRemaining === 0) {
-            answered = false;
             unAnswered++
             stop();
             alert("Time Up!");
@@ -138,15 +127,16 @@ $(document).ready(function() {
     }
 
     function stop() {
-        clearInterval(setTimer);
         timeRemaining = 10;
-        reset();
+        clearInterval(setTimer);
         run();
+        reset();
     }
 
     $('#start').on('click', function() {
         $('#start').hide();
         startGame();
+
     })
 
 
